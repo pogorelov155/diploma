@@ -1,10 +1,17 @@
 import React, { useState }  from 'react';
+import GeneralItems from './GeneralItems';
 
-const Question = ({question, index}) => {
+
+const Question = ({ question, setModalView, index, setIdDeleteItem}) => {
+
 
   return (
     <div>
-      {question.title}
+      <GeneralItems 
+      setModalView={setModalView}
+      index={index}
+      setIdDeleteItem={setIdDeleteItem}
+      />
     </div>
   )
 }
