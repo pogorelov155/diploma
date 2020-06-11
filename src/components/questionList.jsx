@@ -1,18 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import getItem from '../utils/getItem';
+import setItem from '../utils/setItem';
 import Question from './Question';
 import Checkbox from './question/Checkbox';
 import Radio from './question/Radio';
 
 const QuestionList = () => {
-  const arrQuestion = getItem();
-  console.log(arrQuestion);
-  
+  const [arrQuestion, setArrQuestion] = useState(getItem());
+  console.log(arrQuestion, 'main');
+
+  useEffect(() => {setItem(arrQuestion)}, [arrQuestion]);
+
   const listArr = arrQuestion.map((question, i) => {
     return  (question.type === 'checkbox') ? 
       <Checkbox 
         key={i}
-        question={question}/> : 
+        question={question} 
+        index={i}
+        setArrQuestion={setArrQuestion}/> : 
         (question.type === 'radio') ? 
       <Radio
         key={i}
@@ -20,6 +25,7 @@ const QuestionList = () => {
       <Question 
         key={i}
         question={question}/>;
+        
   });
   
   return (
