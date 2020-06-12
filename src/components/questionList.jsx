@@ -4,18 +4,19 @@ import setItem from '../utils/setItem';
 import Question from './Question';
 import Checkbox from './question/Checkbox';
 import Radio from './question/Radio';
-import { Modal, Button } from 'antd';
+import { Modal,  } from 'antd';
 import deleteQuestion from '../utils/deleteQuestion';
 
 const QuestionList = () => {
   const [arrQuestion, setArrQuestion] = useState(getItem());
+  console.log(arrQuestion, 'main');
   
   const [modalView, setModalView] = useState(false);  
 
   const [idDeleteItem, setIdDeleteItem] = useState(null);
 
   useEffect(() => {setItem(arrQuestion)}, [arrQuestion]);
-  
+
   return (
     <div>
       <div>
@@ -36,6 +37,7 @@ const QuestionList = () => {
               key={i}
               index={i}
               question={question}
+              setArrQuestion={setArrQuestion}
               setIdDeleteItem={setIdDeleteItem}
               setModalView={setModalView}
           /> :
@@ -58,7 +60,7 @@ const QuestionList = () => {
         }}
         onCancel={() => setModalView(false)}
       >
-        <p>TETETET</p>
+        <p>Are you sure you want to delete this question?</p>
         </Modal>
     </div>
   )

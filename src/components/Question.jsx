@@ -1,9 +1,8 @@
-import React, { useState }  from 'react';
+import React, {  }  from 'react';
 import GeneralItems from './GeneralItems';
 
 
 const Question = ({ question, setModalView, index, setIdDeleteItem}) => {
-
 
   return (
     <div>
