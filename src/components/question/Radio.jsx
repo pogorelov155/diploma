@@ -2,6 +2,7 @@ import React, { } from 'react';
 import GeneralItems from '../GeneralItems';
 import { CloseOutlined } from '@ant-design/icons';
 import deleteOption from '../../utils/deleteOption';
+import newOption from '../../utils/newOption';
 
 const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion}) => {
 
@@ -16,6 +17,7 @@ const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion}
   return (  
     <div>
       <ul>{listRadio}</ul>
+      <button onClick={() => newOption(question, index, setArrQuestion)}>Add new option</button>
       <GeneralItems 
       index={index}
       setIdDeleteItem={setIdDeleteItem}
