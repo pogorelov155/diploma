@@ -3,13 +3,15 @@ import getItem from '../utils/getItem';
 import setItem from '../utils/setItem';
 import Question from './Question';
 import Checkbox from './question/Checkbox';
+import Description from './question/Description';
 import Radio from './question/Radio';
-import { Modal, Select, Button  } from 'antd';
+import { Modal, Select, Button } from 'antd';
 import deleteQuestion from '../utils/deleteQuestion';
 import updateQuestion from '../utils/updateQuestion';
-import {optionTypeList} from '../utils/constants';
+import { optionTypeList, selectedQuestion} from '../utils/constants';
 import { PlusOutlined } from '@ant-design/icons';
 import addQuestion from '../utils/addQuestion';
+import markSelect from './../utils/markSelect';
 
 const { Option } = Select;
 
@@ -25,58 +27,71 @@ const QuestionList = () => {
   
   useEffect(() => {setItem(arrQuestion)}, [arrQuestion]);
 
-  const [newQuestion, setNewQuestion] = useState({_id: "5ed76fdcacd0631d07c05ac23", options: [], selected: [], text: null, title: 'smth', type: 'text', __typename: 'Question'});
+  const [selectedQuestion, setSelectedQuestion] = useState([9]);
+
+  const [newQuestion, setNewQuestion] = useState({ _id: "5ed76fdcacd0631d07c05ac23", options: [], selected: [], text: null, title: 'New question', type: 'text', __typename: 'Question' });
 
   const changeNewQuestionTitle = (e) => {
     e.persist();
-    console.log(newQuestion);
     setNewQuestion(prev => ({...prev, title: e.target.value}));
   };
 
   const changeNewQuestionType = (value) => {
-    console.log(newQuestion);
     setNewQuestion(prev => ({...prev, type: value}));
   };
 
   return (
     <div>
-      <div>
-        {arrQuestion.map((question, i) => <div key={i}>
-           <div>
-            <Select value={question.type} style={{ width: 150 }} onChange={(value) => updateQuestion(i, setArrQuestion, value)}>
-               {optionTypeList.map((option, i) => {
-                 return <Option key={i} value={option.toLowerCase()}>{option} </Option>
-              })}
-            </Select>
-            </div>
-            <div>{question.title}</div> 
-            {(question.type === 'checkbox') ?
-          <Checkbox
-            key={i}
-            question={question}
-            index={i}
-            setArrQuestion={setArrQuestion}
-            setModalView={setModalView}
-            setIdDeleteItem={setIdDeleteItem}
-          /> :
-          (question.type === 'radio') ?
-            <Radio
+      <div >
+        {arrQuestion.map((question, i) => 
+          <div className= 'mainBody' key={i}>
+            {i === selectedQuestion[0] ? 
+            <div>
+              <Select value={question.type} style={{ width: 150 }} onChange={(value) => updateQuestion(i, setArrQuestion, value)}>
+                {optionTypeList.map((option, i) => {
+                  return <Option key={i} value={option.toLowerCase()}>{option} </Option>
+                })}
+              </Select> 
+            </div> : null}
+            <div style={{cursor: 'pointer'}} onClick={() => markSelect(selectedQuestion, i, setSelectedQuestion)}>{question.title}</div> 
+              {(question.type === 'checkbox') ?
+            <Checkbox
               key={i}
-              index={i}
               question={question}
+              index={i}
               setArrQuestion={setArrQuestion}
-              setIdDeleteItem={setIdDeleteItem}
-              setModalView={setModalView}
-          /> :
-            <Question
-              key={i}
-              index={i}
-              question={question}
               setModalView={setModalView}
               setIdDeleteItem={setIdDeleteItem}
-               />}
-          
-      </div>)}
+              selectedQuestion={selectedQuestion}
+            /> :
+            (question.type === 'radio') ?
+              <Radio
+                key={i}
+                index={i}
+                question={question}
+                setArrQuestion={setArrQuestion}
+                setIdDeleteItem={setIdDeleteItem}
+                setModalView={setModalView}
+                selectedQuestion={selectedQuestion}
+            /> :
+            (question.type === 'text') ?
+              <Question
+                key={i}
+                index={i}
+                question={question}
+                setModalView={setModalView}
+                setIdDeleteItem={setIdDeleteItem}
+                selectedQuestion={selectedQuestion}
+                /> :
+                <Description
+                key={i}
+                index={i}
+                question={question}
+                setModalView={setModalView}
+                setIdDeleteItem={setIdDeleteItem}
+                selectedQuestion={selectedQuestion}
+            />}
+          </div>)}
       <Modal
         title="Confirm delete?"
         visible={modalView}
@@ -90,10 +105,10 @@ const QuestionList = () => {
         </Modal>
     </div>
       <Modal
-        title="Confirm delete?"
+        title="New question"
         visible={modalView1}
         onOk={() => {
-          addQuestion(arrQuestion, setArrQuestion, newQuestion)
+          addQuestion(arrQuestion, setArrQuestion, newQuestion )
           setModalView1(false)
         }}
         onCancel={() => setModalView1(false)}
@@ -104,7 +119,7 @@ const QuestionList = () => {
           {optionTypeList.map((option, i) => <Option key={i} value={option.toLowerCase()}>{option} </Option>)}
         </Select>
       </Modal>
-      <Button className="Button-center" type="primary" shape="circle" icon={<PlusOutlined />} size={"large"} onClick={() => setModalView1(true)}/>
+      <Button style={{position: 'fixed', top: '90%', left: '49%'}} type="primary" shape="circle" icon={<PlusOutlined />} size={"large"} onClick={() => setModalView1(true)}/>
     </div>
   )
 }
