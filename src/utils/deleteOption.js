@@ -1,4 +1,3 @@
-
 const deleteOption = (question, i, index, setQuestion) => {
     const arr = [...question];
     arr.splice(i, 1);
