@@ -12,7 +12,7 @@ const Text = ({ question, setModalView, index, setIdDeleteItem, selectedQuestion
  
   return (
     <div>
-      {index === selectedQuestion[0] ?
+      {(index === selectedQuestion.index && selectedQuestion.isEdit === true) ?
         <div>
           <form onSubmit={(e) => addTextQuestion(newText, question.text, setArrQuestion, index, e)}>
             <input type="text" onChange={changeNewText}/>
@@ -20,9 +20,9 @@ const Text = ({ question, setModalView, index, setIdDeleteItem, selectedQuestion
           </form>
           <p>{question.text}</p>
           <GeneralItems 
-          setModalView={setModalView}
-          index={index}
-          setIdDeleteItem={setIdDeleteItem}
+            setModalView={setModalView}
+            index={index}
+            setIdDeleteItem={setIdDeleteItem}
           />
         </div> : null}
     </div>

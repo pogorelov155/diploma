@@ -4,7 +4,7 @@ import { DeleteOutlined} from '@ant-design/icons';
 
 const GeneralItems = ({ setModalView, index, setIdDeleteItem}) => {
   return(
-    <div>
+    <div className="deleteIcon">
       <DeleteOutlined 
         style={{ fontSize: '24px' }} 
         onClick={() => {
