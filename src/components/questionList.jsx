@@ -97,8 +97,9 @@ const QuestionList = () => {
               className='selectQuestion'
               onClick={() => markSelectQuestion(i, !selectedQuestion.isEdit)}
             >
-              {question.title}
-              {question.type === "checkbox" ? (
+              {question.title}  </div>
+            <div
+              className='selectQuestion'>{question.type === "checkbox" ? (
                 <Checkbox
                   key={i}
                   question={question}
