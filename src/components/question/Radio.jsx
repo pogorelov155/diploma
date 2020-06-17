@@ -1,11 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import GeneralItems from '../GeneralItems';
 import { CloseOutlined } from '@ant-design/icons';
 import deleteOption from '../../utils/deleteOption';
 import newOtherOption from '../../utils/newOtherOption';
 import newOption from '../../utils/newOption';
 import markSelectRadio from '../../utils/markSelectRadio';
-import setItem from '../../utils/setItem';
 import updateQuestion from '../../utils/updateQuestion';
 
 const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion, selectedQuestion, addOption, setAddOption}) => {
@@ -36,9 +35,7 @@ const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion,
   }; 
 
   const listRadio = question.options.map((option, i) =>
-    <li 
-      key={i} 
-    >
+    <li key={i}>
       <div >
         <div onClick={() => showInputChangeOption(i)}>
           {(changeOption.clicked && changeOption.index === i) ? 

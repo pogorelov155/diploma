@@ -1,13 +1,30 @@
-import React, {} from 'react';
+import React, {useState} from 'react';
 import GeneralItems from '../GeneralItems';
 import { CloseOutlined } from '@ant-design/icons';
 import deleteOption from '../../utils/deleteOption';
 import newOtherOption from '../../utils/newOtherOption';
 import newOption from '../../utils/newOption';
 import markSelectCheckbox from '../../utils/markSelectCheckbox';
+import updateQuestion from '../../utils/updateQuestion';
 
 const Checkbox = ({ question, setArrQuestion, index, setModalView, setIdDeleteItem, selectedQuestion, addOption, setAddOption}) => {
   
+  const [changeOption, setChangeOption] = useState({ clicked: false, index: 99 });
+
+  const showInputChangeOption = (index) => {
+    changeOption.clicked = !changeOption.clicked;
+    changeOption.index = index;
+    setChangeOption(prev => ({ ...prev, clicked: changeOption.clicked, index: changeOption.index }))
+  };
+
+  const changeOptionText = (e, i) => {
+    const newQuestion = { ...question };
+    newQuestion.options[i] = e.target.value;
+    setArrQuestion(prev => {
+      return updateQuestion(prev, index, newQuestion)
+    });
+  }; 
+
   const showInputAddOption = () => {
     setAddOption(prev => ({ ...prev, clicked: true }))
   };
@@ -17,9 +34,19 @@ const Checkbox = ({ question, setArrQuestion, index, setModalView, setIdDeleteIt
     setAddOption(prev => ({ ...prev, text: e.target.value }));
   };
 
-  const listOptions = question.options.map((item, i) =>
-   <li key={i}>{item}
-    <div>
+  const listOptions = question.options.map((option, i) =>
+    <li key={i}>
+      <div>
+        <div onClick={() => showInputChangeOption(i)}>
+          {(changeOption.clicked && changeOption.index === i) ? 
+            <input
+              type='text'
+              value={option}
+              onChange={(e) => changeOptionText(e, i)}
+              autoFocus
+            />
+            : option}
+        </div>
       <input 
         type="checkbox" 
         checked={question.selected.includes(i, 0) ? true : false} 
