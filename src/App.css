@@ -72,3 +72,17 @@
   flex-direction: column;
   align-items: flex-end;
 }
+
+.selectQuestion { 
+  cursor: pointer;
+  width: 100%;
+}
+
+.ulStyle {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+    padding: 0;
+}

@@ -38,7 +38,6 @@ const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion,
   const listRadio = question.options.map((option, i) =>
     <li 
       key={i} 
-      style={{ padding: '15px',}}
     >
       <div >
         <div onClick={() => showInputChangeOption(i)}>
@@ -56,7 +55,8 @@ const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion,
             value={option} 
             checked={question.selected[0] === i} 
             onChange={() => markSelectRadio(i, index, question.selected, setArrQuestion)} 
-          disabled={(index === selectedQuestion.index && selectedQuestion.isEdit === true) ? false : true}
+            disabled={(index === selectedQuestion.index && selectedQuestion.isEdit === true) 
+            ? false : true } 
           />
       </div>
       {(index === selectedQuestion.index && selectedQuestion.isEdit === true) ? <CloseOutlined
@@ -68,13 +68,7 @@ const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion,
     <div>
       {(index === selectedQuestion.index && selectedQuestion.isEdit === true) ?
         <div>
-          <ul 
-            style={{
-              display: 'flex',
-              justifyCcontent: 'space-between',
-              flexWrap: 'wrap',
-              flexDirection: 'row', }}
-          >
+          <ul className='ulStyle'>
             {listRadio}
           </ul>
           {addOption.clicked ? 
@@ -94,13 +88,7 @@ const Radio = ({ index, question, setModalView, setIdDeleteItem, setArrQuestion,
             setModalView={setModalView} 
         />
         </div> : 
-        <ul 
-          style= {{
-            display: 'flex',
-            justifyCcontent: 'space-between',
-            flexWrap: 'wrap',
-            flexDirection: 'row', }}
-        >
+        <ul className='ulStyle'>
           {listRadio}
         </ul>}
     </div>

@@ -17,12 +17,8 @@ const Checkbox = ({ question, setArrQuestion, index, setModalView, setIdDeleteIt
     setAddOption(prev => ({ ...prev, text: e.target.value }));
   };
 
-//ToDo
-/*   onClick = {() => markChoosedOption(i)}
-updateOption.choosed === i ? <input type='text' /> : */
-
-  const listOptions = question.options.map((item, i) => {
-    return <li key={i} style={{ padding: '15px', }}>{item}
+  const listOptions = question.options.map((item, i) =>
+   <li key={i}>{item}
     <div>
       <input 
         type="checkbox" 
@@ -37,25 +33,20 @@ updateOption.choosed === i ? <input type='text' /> : */
     </div>
       {(index === selectedQuestion.index && selectedQuestion.isEdit === true) ? 
         <CloseOutlined 
-          style={{margin: '0 50px',fontSize: '18px'}}
+          style={{margin: '0 auto',fontSize: '18px'}}
           onClick={() => deleteOption(question.options, i, index, setArrQuestion)}
         />
         :
         null
       } 
     </li>
-  });
+  );
 
   return (
     <div>
       {(index === selectedQuestion.index && selectedQuestion.isEdit === true) ? 
         <div>
-          <ul style={{
-            display: 'flex',
-            justifyCcontent: 'space-between',
-            flexWrap: 'wrap',
-            flexDirection: 'row',}}
-          >
+          <ul className='ulStyle'>
             {listOptions}
           </ul>
           {addOption.clicked ? 
@@ -79,14 +70,7 @@ updateOption.choosed === i ? <input type='text' /> : */
             setIdDeleteItem={setIdDeleteItem} 
           />
         </div> : 
-        <ul
-          style={{
-            display: 'flex',
-            justifyCcontent: 'space-between',
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-          }}
-        >
+        <ul className='ulStyle'>
           {listOptions}
         </ul>}
     </div>

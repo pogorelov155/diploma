@@ -58,6 +58,16 @@ const QuestionList = () => {
     setSelectedQuestion({ index: index, isEdit: isEdit });
   };
 
+  const cumOk = () => {
+    deleteQuestion(arrQuestion, idDeleteItem, setArrQuestion);
+    setModalView(false);
+  };
+
+  const addNewQuestion = () => {
+    addQuestion(arrQuestion, setArrQuestion, newQuestion);
+    setModalView1(false);
+  }
+
   console.log(selectedQuestion, "ssss");
 
   return (
@@ -84,7 +94,7 @@ const QuestionList = () => {
               </div>
             ) : null}
             <div
-              style={{ cursor: "pointer" }}
+              className='selectQuestion'
               onClick={() => markSelectQuestion(i, !selectedQuestion.isEdit)}
             >
               {question.title}
@@ -138,10 +148,7 @@ const QuestionList = () => {
         <Modal
           title="Confirm delete?"
           visible={modalView}
-          onOk={() => {
-            deleteQuestion(arrQuestion, idDeleteItem, setArrQuestion);
-            setModalView(false);
-          }}
+          onOk={cumOk}
           onCancel={() => setModalView(false)}
         >
           <p>Are you sure you want to delete this question?</p>
@@ -150,10 +157,7 @@ const QuestionList = () => {
       <Modal
         title="New question"
         visible={modalView1}
-        onOk={() => {
-          addQuestion(arrQuestion, setArrQuestion, newQuestion);
-          setModalView1(false);
-        }}
+        onOk={addNewQuestion}
         onCancel={() => setModalView1(false)}
       >
         <p>Title:</p>
